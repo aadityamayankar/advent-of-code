@@ -8,5 +8,5 @@ def solve(nums):
 if __name__ == "__main__":
     f = open("input.txt", mode='r')
     s = f.read()
-    solve(list(map(int,s.split('\n'))))
     f.close()
+    solve(list(map(int,s.split('\n'))))
