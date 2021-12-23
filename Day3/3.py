@@ -1,5 +1,24 @@
-def solve(nums):
-    nums = [[row[i] for row in nums] for i in range(len(nums[0]))]
+from aocd import get_data, transforms, submit
+
+f = open('input.txt', 'w')
+data = get_data(day=3, year=2021)
+f.write(data)
+lines = transforms.lines(data)
+nums = [[row[i] for row in lines] for i in range(len(lines[0]))]
+
+def part_one():
+    gamma,epsilon = 0,0
+    for i,row in enumerate(nums):
+        z,o = row.count('0'), row.count('1')
+        if o > z:
+            gamma = gamma | (1 << len(nums) - i - 1)
+
+        else:
+            epsilon = epsilon | (1 << len(nums) - i - 1)
+    return gamma * epsilon
+
+def part_two():
+    nums = [[row[i] for row in lines] for i in range(len(lines[0]))]
     _nums = [x[:] for x in nums]
     gamma,epsilon = "",""
     for i,row in enumerate(nums):
@@ -35,11 +54,9 @@ def solve(nums):
                     del y[x-j]
     for row in nums:
         epsilon += row[0]
-    print(int(gamma,2) * int(epsilon,2))
+    return int(gamma,2) * int(epsilon,2)
 
+a, b = part_one(), part_two()
 
-if __name__ == "__main__":
-    f = open("input.txt", "r")
-    s = f.read()
-    f.close()
-    solve(s.split('\n'))
+submit(day=3, year=2021, part=1, answer=a)
+submit(day=3, year=2021, part=2, answer=b)
